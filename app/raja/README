@@ -1,0 +1,54 @@
+
+ ** Work in Progress ** Work in Progress ** Work in Progress ** Work in Progress **
+
+
+      *****************************************
+      *****   For John Mellor-Crummey     *****
+      *****  in collaboration with LLNL   *****
+      *****************************************
+
+This directory contains some RAJA samples.
+
+   RAJA is a programming model designed at Lawrence Livermore National Laboratory 
+   to allow enhanced archtecture-specific mapping in large legacy multi-physics
+   codes with minimal code changes.  While there are many powerful programming
+   models available, they often require an intrusive change to the look and feel
+   of exisiting code that RAJA avoids.  Also, we wanted a model that would easily
+   encapsulate various vectorization/threading models in auxilliary files without
+   having to modfify souurce code directly.  More specifically, the goal is to
+   switch between a composition of SIMD, OMP, Cilk, or NVCC without modifying
+   the main source code.  RAJA achieves this by encapsulating a great deal of
+   architecture-specific information in the RAJA portability layer.
+
+   There are several interesting features of RAJA that were implemented in a
+   few lines that would have taken a lot of work in any other programming model
+   we are aware of.  For instance, dependency scheduling support was added in
+   about 20 lines of code, yet applies to all RAJA for loops in a given code.
+
+   Fault Tolerance support is another feature that was added in about 20 lines
+   of code, but it does require that RAJA loops be written in an idempotent form.
+   Since most legacy codes were evolved from idempotent vectorized code, this
+   limits the amount of work needed to implement fault tolerance in existing codes.
+   (modify build/RAJA_rules.mk and do 'make parallel-ft' in LULESH to enable FT)
+
+   Finally, since RAJA allows fine grained control of the iteration space,
+   it can be used in concert with complex allocation and scheduling policies
+   to partition and permute underlying arrays in a way that simplifies many
+   architecture specific mappings (e.g. tiling).  Also, each iteration space
+   can be assigned a different execution or programming model, allowing a level
+   of mix-and-match flexibility not always seen in a single programming model.
+
+   Suggested walkthrough:
+
+      To see changes needed for RAJA:  cd CompactExamples/AddingRAJA ; xdiff *
+
+      To see the interplay of RAJA features:  cd CompactExamples/HMCexample ; vi *
+
+      To see how Indexsets and Segmentation work together:  vi test/LULESH/luleshPolicy.hxx
+
+
+   Please feel free to contact us with any questions:
+
+      Rich Hornung (hornung1@llnl.gov), or
+      Jeff Keasler (keasler1@llnl.gov
+

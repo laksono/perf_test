@@ -1,0 +1,3 @@
+unset OMP_WAIT_POLICY
+unset KMP_BLOCKTIME
+

@@ -1,0 +1,1022 @@
+
+Begin optimization report for: RAJA::buildIndexSet(RAJA::IndexSet &, const RAJA::Index_type *, RAJA::Index_type)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../../sources//IndexSet.cxx(275,7)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between scanVal line 317 and scanVal line 279
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(371,28)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(371,28)
+<Distributed chunk1>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 3 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 10.120 
+   remark #15478: estimated potential speedup: 0.750 
+   remark #15479: lightweight vector operations: 7 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(371,28)
+<Distributed chunk2>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 4 
+   remark #15462: unmasked indexed (or gather) loads: 4 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 10.250 
+   remark #15478: estimated potential speedup: 0.910 
+   remark #15479: lightweight vector operations: 10 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(371,28)
+<Distributed chunk3>
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 192 and tdata line 192
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(390,25)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(390,25)
+<Distributed chunk1>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 3 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 10.120 
+   remark #15478: estimated potential speedup: 0.750 
+   remark #15479: lightweight vector operations: 7 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(390,25)
+<Distributed chunk2>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 4 
+   remark #15462: unmasked indexed (or gather) loads: 4 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 10.250 
+   remark #15478: estimated potential speedup: 0.910 
+   remark #15479: lightweight vector operations: 10 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(390,25)
+<Distributed chunk3>
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 192 and tdata line 192
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(406,22)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(406,22)
+<Distributed chunk1>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 3 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 10.120 
+   remark #15478: estimated potential speedup: 0.750 
+   remark #15479: lightweight vector operations: 7 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(406,22)
+<Distributed chunk2>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 4 
+   remark #15462: unmasked indexed (or gather) loads: 4 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 10.250 
+   remark #15478: estimated potential speedup: 0.910 
+   remark #15479: lightweight vector operations: 10 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(406,22)
+<Distributed chunk3>
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 192 and tdata line 192
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(410,22)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(410,22)
+<Distributed chunk1>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 3 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 10.120 
+   remark #15478: estimated potential speedup: 0.750 
+   remark #15479: lightweight vector operations: 7 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(410,22)
+<Distributed chunk2>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 4 
+   remark #15462: unmasked indexed (or gather) loads: 4 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 10.250 
+   remark #15478: estimated potential speedup: 0.910 
+   remark #15479: lightweight vector operations: 10 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(410,22)
+<Distributed chunk3>
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 192 and tdata line 192
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(414,19)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(414,19)
+<Distributed chunk1>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 3 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 10.120 
+   remark #15478: estimated potential speedup: 0.750 
+   remark #15479: lightweight vector operations: 7 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(414,19)
+<Distributed chunk2>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 4 
+   remark #15462: unmasked indexed (or gather) loads: 4 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 10.250 
+   remark #15478: estimated potential speedup: 0.910 
+   remark #15479: lightweight vector operations: 10 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(414,19)
+<Distributed chunk3>
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 192 and tdata line 192
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(418,16)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(418,16)
+<Distributed chunk1>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 3 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 10.120 
+   remark #15478: estimated potential speedup: 0.750 
+   remark #15479: lightweight vector operations: 7 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(418,16)
+<Distributed chunk2>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 4 
+   remark #15462: unmasked indexed (or gather) loads: 4 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 10.250 
+   remark #15478: estimated potential speedup: 0.910 
+   remark #15479: lightweight vector operations: 10 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(418,16)
+<Distributed chunk3>
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 192 and tdata line 192
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(422,13)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(422,13)
+<Distributed chunk1>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 3 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 10.120 
+   remark #15478: estimated potential speedup: 0.750 
+   remark #15479: lightweight vector operations: 7 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(422,13)
+<Distributed chunk2>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 4 
+   remark #15462: unmasked indexed (or gather) loads: 4 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 10.250 
+   remark #15478: estimated potential speedup: 0.910 
+   remark #15479: lightweight vector operations: 10 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(422,13)
+<Distributed chunk3>
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 192 and tdata line 192
+LOOP END
+
+
+Non-optimizable loops:
+
+
+LOOP BEGIN at ../../sources//IndexSet.cxx(354,10)
+   remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(255,10) ]
+
+   LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(371,28)
+      remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+   LOOP END
+
+   LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(390,25)
+      remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(406,22)
+   remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(410,22)
+   remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(414,19)
+   remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(418,16)
+   remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(422,13)
+   remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+LOOP END
+===========================================================================
+
+Begin optimization report for: RAJA::IndexSet::IndexSet(RAJA::IndexSet *, const RAJA::IndexSet &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(49,4)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(49,4)
+<Distributed chunk1>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 3 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 10.120 
+   remark #15478: estimated potential speedup: 0.750 
+   remark #15479: lightweight vector operations: 7 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(49,4)
+<Distributed chunk2>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 4 
+   remark #15462: unmasked indexed (or gather) loads: 4 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 10.250 
+   remark #15478: estimated potential speedup: 0.910 
+   remark #15479: lightweight vector operations: 10 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(49,4)
+<Distributed chunk3>
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 192 and tdata line 192
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(49,4)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(49,4)
+<Distributed chunk1>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 3 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 10.120 
+   remark #15478: estimated potential speedup: 0.750 
+   remark #15479: lightweight vector operations: 7 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(49,4)
+<Distributed chunk2>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 4 
+   remark #15462: unmasked indexed (or gather) loads: 4 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 10.250 
+   remark #15478: estimated potential speedup: 0.910 
+   remark #15479: lightweight vector operations: 10 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(49,4)
+<Distributed chunk3>
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 192 and tdata line 192
+LOOP END
+
+
+Non-optimizable loops:
+
+
+LOOP BEGIN at ../../sources//IndexSet.cxx(218,4) inlined into ../../sources//IndexSet.cxx(49,4)
+   remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(255,10) ]
+
+   LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(49,4)
+      remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+   LOOP END
+
+   LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(49,4)
+      remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: RAJA::IndexSet::IndexSet(RAJA::IndexSet *const, const RAJA::IndexSet &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(46,11)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(46,11)
+<Distributed chunk1>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 3 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 10.120 
+   remark #15478: estimated potential speedup: 0.750 
+   remark #15479: lightweight vector operations: 7 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(46,11)
+<Distributed chunk2>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 4 
+   remark #15462: unmasked indexed (or gather) loads: 4 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 10.250 
+   remark #15478: estimated potential speedup: 0.910 
+   remark #15479: lightweight vector operations: 10 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(46,11)
+<Distributed chunk3>
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 192 and tdata line 192
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(46,11)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(46,11)
+<Distributed chunk1>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 3 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 10.120 
+   remark #15478: estimated potential speedup: 0.750 
+   remark #15479: lightweight vector operations: 7 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(46,11)
+<Distributed chunk2>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 4 
+   remark #15462: unmasked indexed (or gather) loads: 4 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 10.250 
+   remark #15478: estimated potential speedup: 0.910 
+   remark #15479: lightweight vector operations: 10 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(46,11)
+<Distributed chunk3>
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 192 and tdata line 192
+LOOP END
+
+
+Non-optimizable loops:
+
+
+LOOP BEGIN at ../../sources//IndexSet.cxx(218,4) inlined into ../../sources//IndexSet.cxx(46,11)
+   remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(255,10) ]
+
+   LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(46,11)
+      remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+   LOOP END
+
+   LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(46,11)
+      remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: RAJA::IndexSet::operator=(RAJA::IndexSet *, const RAJA::IndexSet &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(56,21)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(56,21)
+<Distributed chunk1>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 3 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 10.120 
+   remark #15478: estimated potential speedup: 0.750 
+   remark #15479: lightweight vector operations: 7 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(56,21)
+<Distributed chunk2>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 4 
+   remark #15462: unmasked indexed (or gather) loads: 4 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 10.250 
+   remark #15478: estimated potential speedup: 0.910 
+   remark #15479: lightweight vector operations: 10 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(56,21)
+<Distributed chunk3>
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 192 and tdata line 192
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(56,21)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(56,21)
+<Distributed chunk1>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 3 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 10.120 
+   remark #15478: estimated potential speedup: 0.750 
+   remark #15479: lightweight vector operations: 7 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(56,21)
+<Distributed chunk2>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 4 
+   remark #15462: unmasked indexed (or gather) loads: 4 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 10.250 
+   remark #15478: estimated potential speedup: 0.910 
+   remark #15479: lightweight vector operations: 10 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(56,21)
+<Distributed chunk3>
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 192 and tdata line 192
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(57,13)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(157,7) inlined into ../../sources//IndexSet.cxx(57,13)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 158 and copy line 158
+LOOP END
+
+LOOP BEGIN at ../../sources//IndexSet.cxx(65,4) inlined into ../../sources//IndexSet.cxx(58,4)
+   remark #15520: loop was not vectorized: loop with early exits cannot be vectorized unless it meets search loop idiom criteria
+LOOP END
+
+
+Non-optimizable loops:
+
+
+LOOP BEGIN at ../../sources//IndexSet.cxx(218,4) inlined into ../../sources//IndexSet.cxx(56,21)
+   remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(255,10) ]
+
+   LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(56,21)
+      remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+   LOOP END
+
+   LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(56,21)
+      remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+   LOOP END
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(57,13)
+   remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+LOOP END
+===========================================================================
+
+Begin optimization report for: RAJA::IndexSet::~IndexSet(RAJA::IndexSet *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../../sources//IndexSet.cxx(65,4)
+   remark #15520: loop was not vectorized: loop with early exits cannot be vectorized unless it meets search loop idiom criteria
+LOOP END
+===========================================================================
+
+Begin optimization report for: RAJA::IndexSet::~IndexSet(RAJA::IndexSet *const)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../../sources//IndexSet.cxx(65,4) inlined into ../../sources//IndexSet.cxx(62,11)
+   remark #15520: loop was not vectorized: loop with early exits cannot be vectorized unless it meets search loop idiom criteria
+LOOP END
+===========================================================================
+
+Begin optimization report for: RAJA::IndexSet::swap(RAJA::IndexSet *, RAJA::IndexSet &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(110,15)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(157,7) inlined into ../../sources//IndexSet.cxx(110,15)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 158 and copy line 158
+LOOP END
+
+
+Non-optimizable loops:
+
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(110,15)
+   remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+LOOP END
+===========================================================================
+
+Begin optimization report for: RAJA::IndexSet::addRange(RAJA::IndexSet *, RAJA::Index_type, RAJA::Index_type)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(126,4)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(126,4)
+<Distributed chunk1>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 3 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 10.120 
+   remark #15478: estimated potential speedup: 0.750 
+   remark #15479: lightweight vector operations: 7 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(126,4)
+<Distributed chunk2>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 4 
+   remark #15462: unmasked indexed (or gather) loads: 4 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 10.250 
+   remark #15478: estimated potential speedup: 0.910 
+   remark #15479: lightweight vector operations: 10 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(126,4)
+<Distributed chunk3>
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 192 and tdata line 192
+LOOP END
+
+
+Non-optimizable loops:
+
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(126,4)
+   remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+LOOP END
+===========================================================================
+
+Begin optimization report for: RAJA::IndexSet::addISet(RAJA::IndexSet *, const RAJA::RangeISet &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(132,4)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(132,4)
+<Distributed chunk1>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 3 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 10.120 
+   remark #15478: estimated potential speedup: 0.750 
+   remark #15479: lightweight vector operations: 7 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(132,4)
+<Distributed chunk2>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 4 
+   remark #15462: unmasked indexed (or gather) loads: 4 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 10.250 
+   remark #15478: estimated potential speedup: 0.910 
+   remark #15479: lightweight vector operations: 10 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(132,4)
+<Distributed chunk3>
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 192 and tdata line 192
+LOOP END
+
+
+Non-optimizable loops:
+
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(132,4)
+   remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+LOOP END
+===========================================================================
+
+Begin optimization report for: RAJA::IndexSet::addList(RAJA::IndexSet *, const RAJA::Index_type *, RAJA::Index_type, RAJA::IndexOwnership)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(140,4)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(140,4)
+<Distributed chunk1>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 3 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 10.120 
+   remark #15478: estimated potential speedup: 0.750 
+   remark #15479: lightweight vector operations: 7 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(140,4)
+<Distributed chunk2>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 4 
+   remark #15462: unmasked indexed (or gather) loads: 4 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 10.250 
+   remark #15478: estimated potential speedup: 0.910 
+   remark #15479: lightweight vector operations: 10 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(140,4)
+<Distributed chunk3>
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 192 and tdata line 192
+LOOP END
+
+
+Non-optimizable loops:
+
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(140,4)
+   remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+LOOP END
+===========================================================================
+
+Begin optimization report for: RAJA::IndexSet::addISet(RAJA::IndexSet *, const RAJA::ListISet &, RAJA::IndexOwnership)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(149,4)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(149,4)
+<Distributed chunk1>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 3 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 10.120 
+   remark #15478: estimated potential speedup: 0.750 
+   remark #15479: lightweight vector operations: 7 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(149,4)
+<Distributed chunk2>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 4 
+   remark #15462: unmasked indexed (or gather) loads: 4 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 10.250 
+   remark #15478: estimated potential speedup: 0.910 
+   remark #15479: lightweight vector operations: 10 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(149,4)
+<Distributed chunk3>
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 192 and tdata line 192
+LOOP END
+
+
+Non-optimizable loops:
+
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(149,4)
+   remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+LOOP END
+===========================================================================
+
+Begin optimization report for: RAJA::IndexSet::print(const RAJA::IndexSet *, std::ostream &) const
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../../sources//IndexSet.cxx(168,4)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed ANTI dependence between this line 169 and  line 199
+LOOP END
+===========================================================================
+
+Begin optimization report for: RAJA::IndexSet::copy(RAJA::IndexSet *, const RAJA::IndexSet &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(227,16)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(227,16)
+<Distributed chunk1>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 3 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 10.120 
+   remark #15478: estimated potential speedup: 0.750 
+   remark #15479: lightweight vector operations: 7 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(227,16)
+<Distributed chunk2>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 4 
+   remark #15462: unmasked indexed (or gather) loads: 4 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 10.250 
+   remark #15478: estimated potential speedup: 0.910 
+   remark #15479: lightweight vector operations: 10 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(227,16)
+<Distributed chunk3>
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 192 and tdata line 192
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(185,7) inlined into ../../sources//IndexSet.cxx(232,16)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(232,16)
+<Distributed chunk1>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 3 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 10.120 
+   remark #15478: estimated potential speedup: 0.750 
+   remark #15479: lightweight vector operations: 7 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(232,16)
+<Distributed chunk2>
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15460: masked strided loads: 4 
+   remark #15462: unmasked indexed (or gather) loads: 4 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 10 
+   remark #15477: vector loop cost: 10.250 
+   remark #15478: estimated potential speedup: 0.910 
+   remark #15479: lightweight vector operations: 10 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at ../../includes/RAJAVec.hxx(191,13) inlined into ../../sources//IndexSet.cxx(232,16)
+<Distributed chunk3>
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between semaphore_notify line 192 and tdata line 192
+LOOP END
+
+
+Non-optimizable loops:
+
+
+LOOP BEGIN at ../../sources//IndexSet.cxx(218,4)
+   remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(255,10) ]
+
+   LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(227,16)
+      remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+   LOOP END
+
+   LOOP BEGIN at ../../includes/RAJAVec.hxx(188,37) inlined into ../../sources//IndexSet.cxx(232,16)
+      remark #15529: loop was not vectorized: volatile assignment was not vectorized. Try using non-volatile assignment.   [ ../../includes/IndexSet.hxx(245,10) ]
+   LOOP END
+LOOP END
+===========================================================================

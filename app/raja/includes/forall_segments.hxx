@@ -1,0 +1,126 @@
+
+
+#if 0
+
+template <typename LOOP_BODY>
+RAJA_INLINE
+void forallSegments( const IndexSet& iss, LOOP_BODY loop_body )
+{
+   IndexSet &is = (*const_cast<IndexSet *>(&iss)) ;
+
+   const int num_seg = is.getNumSegments();
+
+#pragma omp parallel for schedule(static, 1)
+   for ( int isi = 0; isi < num_seg; ++isi ) {
+      volatile int *semMem =
+         reinterpret_cast<volatile int *>(&is.segmentSemaphoreValue(isi)) ;
+
+      while(*semMem != 0) {
+         /* spin or (better) sleep here */ ;
+        // printf("%d ", *semMem) ;
+        // sleep(1) ;
+        // volatile int spin ;
+        // for (spin = 0; spin<1000; ++spin) {
+        //    spin = spin ;
+        // }
+        sched_yield() ;
+      }
+
+      SegmentType segtype = is.getSegmentType(isi);
+      const RangeISet* iset =
+         static_cast<const RangeISet*>(is.getSegmentISet(isi));
+
+      /* Produce a new indexset */
+      IndexSet tmp;
+      tmp.addRange(iset->getBegin(), iset->getEnd()) ;
+      tmp.setPrivateData(0, is.getPrivateData(isi)) ;
+
+      loop_body(&tmp) ;
+
+      if (is.segmentSemaphoreReloadValue(isi) != 0) {
+         is.segmentSemaphoreValue(isi) = is.segmentSemaphoreReloadValue(isi) ;
+      }
+
+      if (is.segmentSemaphoreNumDepTasks(isi) != 0) {
+         for (int ii=0; ii<is.segmentSemaphoreNumDepTasks(isi); ++ii) {
+           /* alternateively, we could get the return value of this call */
+           /* and actively launch the task if we are the last depedent task. */
+           /* in that case, we would not need the semaphore spin loop above */
+           int seg = is.segmentSemaphoreDepTask(isi, ii) ;
+           __sync_fetch_and_sub(&is.segmentSemaphoreValue(seg), 1) ;
+         }
+      }
+
+   } // iterate over segments of hybrid index set
+}
+
+#else
+
+template <typename LOOP_BODY>
+RAJA_INLINE
+void forallSegments( const IndexSet& iss, LOOP_BODY loop_body )
+{
+  IndexSet &is = (*const_cast<IndexSet *>(&iss)) ;
+
+  const int num_seg = is.getNumSegments();
+
+#pragma omp parallel
+  {
+    int numThreads = omp_get_max_threads() ;
+
+// guarantee thread binding matches static binding
+#pragma omp for schedule(static, 1)
+    for (int tid = 0; tid<numThreads ;++tid) {
+
+      /* Create a temporary IndexSet with one Segment */
+      IndexSet tmp;
+      tmp.addRange(0, 0) ; // create a dummy range
+      const RangeISet* isetTmpC =
+        static_cast<const RangeISet*>(tmp.getSegmentISet(0));
+      RangeISet* isetTmp = const_cast<RangeISet*>(isetTmpC) ;
+
+      for ( int isi = tid; isi < num_seg; isi += numThreads ) {
+
+        volatile int *semMem =
+          reinterpret_cast<volatile int *>(&is.segmentSemaphoreValue(isi));
+
+        while(*semMem != 0) {
+          /* spin or (better) sleep here */ ;
+          // printf("%d ", *semMem) ;
+          // sleep(1) ;
+          // volatile int spin ;
+          // for (spin = 0; spin<1000; ++spin) {
+          //    spin = spin ;
+          // }
+          sched_yield() ;
+        }
+
+        const RangeISet* iset =
+          static_cast<const RangeISet*>(is.getSegmentISet(isi));
+
+        isetTmp->setBegin(iset->getBegin()) ;
+        isetTmp->setEnd(iset->getEnd()) ;
+        tmp.setPrivateData(0, is.getPrivateData(isi)) ;
+
+        loop_body(&tmp) ;
+
+        if (is.segmentSemaphoreReloadValue(isi) != 0) {
+           is.segmentSemaphoreValue(isi) = is.segmentSemaphoreReloadValue(isi);
+        }
+
+        if (is.segmentSemaphoreNumDepTasks(isi) != 0) {
+          for (int ii=0; ii<is.segmentSemaphoreNumDepTasks(isi); ++ii) {
+            /* alternateively, we could get the return value of this call */
+            /* and actively launch the task if we are the last depedent task. */
+            /* in that case, we would not need the semaphore spin loop above */
+            int seg = is.segmentSemaphoreDepTask(isi, ii) ;
+            __sync_fetch_and_sub(&is.segmentSemaphoreValue(seg), 1) ;
+          }
+        }
+      } // iterate over segments of hybrid index set
+    }
+  }
+}
+
+#endif
+

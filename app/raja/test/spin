@@ -1,0 +1,3 @@
+export OMP_WAIT_POLICY=active
+export KMP_BLOCKTIME=infinite
+

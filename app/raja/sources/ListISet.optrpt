@@ -1,0 +1,10 @@
+
+Begin optimization report for: RAJA::ListISet::print(const RAJA::ListISet *, std::ostream &) const
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../../sources//ListISet.cxx(82,4)
+   remark #15523: loop was not vectorized: cannot compute loop iteration count before executing the loop.
+LOOP END
+===========================================================================

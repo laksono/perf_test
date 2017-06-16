@@ -1,0 +1,47 @@
+#!/usr/bin/env python
+
+#-------------------------------------
+# Script: slice
+# Usage: slice pattern < inputfile
+# Purpose: 
+#    compute the context surrounding
+#    a matching line in an XML file
+#
+# Assumption: 
+#    depth of a context may be inferred
+#    from its indentation. a line with
+#    2n leading blanks is treated as
+#    context at nesting depth n. 
+#-------------------------------------
+
+import sys
+import fileinput
+import re
+
+# return the number of leading blanks
+def leading(s):
+  return len(s) - len(s.lstrip())
+
+if len(sys.argv) != 2:
+  print "usage: slice pattern < input" 
+  sys.exit(2)
+
+pattern = re.compile(sys.argv[1])
+
+# initialize an array of contexts.
+# assume that a nesting depth of 
+# 1000 will be enough
+context = [[] for i in range(1000)]
+
+# scan the input file. record each line
+# as the context at its depth. if 
+# a line matching the specified 
+# pattern in found, print the
+# enclosing content and terminate. 
+for line in fileinput.input('-'):
+  depth =leading(line)/2
+  context[depth] = line.rstrip()
+  if pattern.search(line):
+    for i in range(0, depth+1): 
+      print context[i]
+    break
