@@ -183,7 +183,7 @@ static int read_from_perf_buffer_64(void *event_buf, void *buf)
  * PERF_SAMPLE_IP, PERF_SAMPLE_RAW and PERF_SAMPLE_TIME.
  * More parsers can be added if needed.
  */
-static int parse_perf_sample(void *event_buf, struct perf_event_header *ehdr)
+static int parse_perf_sample(void *event_buf, struct perf_event_header *ehdr, int verbose)
 {
 	size_t sz;
 	uint64_t type, val64;
@@ -229,7 +229,7 @@ static int parse_perf_sample(void *event_buf, struct perf_event_header *ehdr)
 		 * th  IIP of an instruction which caused the event, i.e.,
 		 * no skid
 		 */
-		fprintf(stderr, "IIP:%#016llu  ", val64);
+		if (verbose) fprintf(stderr, "IP: 0x%x  ", val64);
 		sz -= sizeof(val64);
 	}
 
@@ -240,7 +240,7 @@ static int parse_perf_sample(void *event_buf, struct perf_event_header *ehdr)
 			return -1;
 		}
 
-		fprintf(stderr, "PID:%d  TID:%d  ", pid.pid, pid.tid);
+		if (verbose) fprintf(stderr, "PID:%d  TID:%d  ", pid.pid, pid.tid);
 		sz -= sizeof(pid);
 	}
 
@@ -251,7 +251,7 @@ static int parse_perf_sample(void *event_buf, struct perf_event_header *ehdr)
 			return -1;
 		}
 
-		fprintf(stderr, "TIME:%llu  ", val64);
+		if (verbose) fprintf(stderr, "TIME:%llu  ", val64);
 		sz -= sizeof(val64);
 	}
 
@@ -262,7 +262,7 @@ static int parse_perf_sample(void *event_buf, struct perf_event_header *ehdr)
 			return -1;
 		}
 
-		fprintf(stderr, "ADDR:%llu  ", val64);
+		if (verbose) fprintf(stderr, "ADDR: 0x%x  ", val64);
 		sz -= sizeof(val64);
 	}
 	if (type & PERF_SAMPLE_CPU) {
@@ -272,7 +272,7 @@ static int parse_perf_sample(void *event_buf, struct perf_event_header *ehdr)
 			fprintf(stderr, "cannot read cpu");
 			return -1;
 		}
-		fprintf(stderr, "CPU:%u  ", cpu.cpu);
+		if (verbose) fprintf(stderr, "CPU:%u  ", cpu.cpu);
 		sz -= sizeof(cpu);
 	}
 
@@ -282,7 +282,7 @@ static int parse_perf_sample(void *event_buf, struct perf_event_header *ehdr)
 			fprintf(stderr, "cannot read period");
 			return -1;
 		}
-		fprintf(stderr, "PERIOD:%llu  ", val64);
+		if (verbose) fprintf(stderr, "PERIOD:%llu  ", val64);
 		sz -= sizeof(val64);
 	}
 
@@ -296,7 +296,7 @@ static int parse_perf_sample(void *event_buf, struct perf_event_header *ehdr)
 		}
 		sz -= sizeof(nr);
 
-		fprintf(stderr, "\n  CALLCHAIN :\n");
+		if (verbose) fprintf(stderr, "\n  CALLCHAIN :\n");
 		while(nr--) {
 			ret = read_from_perf_buffer_64(event_buf, &ip);
 			if (ret) {
@@ -306,11 +306,11 @@ static int parse_perf_sample(void *event_buf, struct perf_event_header *ehdr)
 
 			sz -= sizeof(ip);
 
-			fprintf(stderr, "\t0x%llu\n", ip);
+			if (verbose) fprintf(stderr, "\t0x%llu\n", ip);
 		}
 	}
 
-	fprintf(stderr, "\n");
+	if (verbose) fprintf(stderr, "\n");
 	return 0;
 }
 
@@ -368,8 +368,7 @@ again:
 		return;
 	}
 	if (ehdr.type == PERF_RECORD_SAMPLE) {
-		fprintf(stderr, "[%d] fd: %d    ", index, fd);
-		ret = parse_perf_sample(event_buf[index], &ehdr);
+		ret = parse_perf_sample(event_buf[index], &ehdr, index > 0);
 
 	}  else {
 		skip_perf_data(event_buf[index], ehdr.size);
@@ -433,7 +432,7 @@ setup_buffer(int fd)
 
 
 static
-int setup_counters(uint64_t type, uint64_t config)
+int setup_counters(uint64_t type, uint64_t config, uint64_t period, uint64_t freq)
 {
 	static int index = 0;
 	struct perf_event_attr attr;
@@ -450,8 +449,8 @@ int setup_counters(uint64_t type, uint64_t config)
 
 	attr.type 	 = type;
 	attr.config 	 = config;
-	attr.sample_freq = 4000;
-	attr.freq 	 = 1;
+	attr.sample_freq = period;
+	attr.freq 	 = freq;
 	attr.wakeup_events = 1;
 	attr.size	   = sizeof(struct perf_event_attr);
 	attr.sample_type   = sample_type;
@@ -497,8 +496,6 @@ setup_handler()
 	sigaction(PERF_SIGNAL, &act, 0);
 }
 
-static const unsigned int  n=512*1024;
-
 void gemm_omp(double *A, double *B, double *C, int n) 
 {   
     #pragma omp parallel
@@ -521,37 +518,45 @@ void gemm_omp(double *A, double *B, double *C, int n)
 int
 main(int argc, char *argv[])
 {
+	const unsigned int  n=64;
+	const unsigned int  nn=n*n;
+
 	pagesize = sysconf(_SC_PAGESIZE);
 	pgmsk = (buffer_pages * pagesize) - 1;
 
 	setup_handler();
 
-	int fd = setup_counters(PERF_TYPE_HARDWARE, PERF_COUNT_HW_CPU_CYCLES);
+	int fd = setup_counters(PERF_TYPE_HARDWARE, PERF_COUNT_HW_CPU_CYCLES, 4000, 1);
 	if (fd < 0) {
 		exit(1);
 	}
 	printf("fd cycles: %d\n", fd);
 
-	fd = setup_counters(PERF_TYPE_SOFTWARE, PERF_COUNT_SW_PAGE_FAULTS);
+	fd = setup_counters(PERF_TYPE_SOFTWARE, PERF_COUNT_SW_PAGE_FAULTS, 1, 0);
 	if (fd < 0) {
 		exit(1);
 	}
 	printf("fd page-faults: %d\n", fd);
 
-	start_counters(fd);
-
 	/* Do something */
+	int i;
 	double *A, *B, *C, dtime;
 
-    	A = (double*)malloc(sizeof(double)*n*n);
-    	B = (double*)malloc(sizeof(double)*n*n);
-    	C = (double*)malloc(sizeof(double)*n*n);
+    	A = (double*)malloc(sizeof(double)*nn);
+    	B = (double*)malloc(sizeof(double)*nn);
+    	C = (double*)malloc(sizeof(double)*nn);
+
+	printf("A: %p - %p   B: %p - %p     C: %p - %p\n", A, A+nn, B, B+nn, C, C+nn);
+
+	start_counters(event_fd[0]);
+	start_counters(event_fd[1]);
+
     	for(i=0; i<n*n; i++) { 
 		A[i] = rand()/RAND_MAX; 
 		B[i] = rand()/RAND_MAX;
 	}
 
-	gemm_omp(A, B, C);
+	gemm_omp(A, B, C, n);
 
 	stop_counters(fd);
 	read_counters(0);
