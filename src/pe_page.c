@@ -497,90 +497,25 @@ setup_handler()
 	sigaction(PERF_SIGNAL, &act, 0);
 }
 
-#ifndef asm
-#define asm __asm__
-#endif
+static const unsigned int  n=512*1024;
 
-int instructions_million(void) {
+void gemm_omp(double *A, double *B, double *C, int n) 
+{   
+    #pragma omp parallel
+    {
+        int i, j, k;
+        #pragma omp for
+        for (i = 0; i < n; i++) { 
+            for (j = 0; j < n; j++) {
+                double dot  = 0;
+                for (k = 0; k < n; k++) {
+                    dot += A[i*n+k]*B[k*n+j];
+                } 
+                C[i*n+j ] = dot;
+            }
+        }
 
-#if defined(__i386__) || (defined __x86_64__)
-	asm(	"	xor	%%ecx,%%ecx\n"
-		"	mov	$499999999,%%ecx\n"
-		"test_loop%=:\n"
-		"	dec	%%ecx\n"
-		"	jnz	test_loop%=\n"
-		: /* no output registers */
-		: /* no inputs */
-		: "cc", "%ecx" /* clobbered */
-	);
-	printf("instruction millions: OK\n");
-	return 0;
-#elif defined(__PPC__)
-	asm(	"	nop			# to give us an even million\n"
-		"	lis	15,499997@ha	# load high 16-bits of counter\n"
-		"	addi	15,15,499997@l	# load low 16-bits of counter\n"
-		"55:\n"
-		"	addic.  15,15,-1              # decrement counter\n"
-		"	bne     0,55b                  # loop until zero\n"
-		: /* no output registers */
-		: /* no inputs */
-		: "cc", "15" /* clobbered */
-	);
-	return 0;
-#elif defined(__ia64__)
-
-	asm(	"	mov	loc6=166666	// below is 6 instr.\n"
-		"	;;			// because of that we count 4 too few\n"
-		"55:\n"
-		"	add	loc6=-1,loc6	// decrement count\n"
-		"	;;\n"
-		"	cmp.ne	p2,p3=0,loc6\n"
-		"(p2)	br.cond.dptk	55b	// if not zero, loop\n"
-		: /* no output registers */
-		: /* no inputs */
-		: "p2", "loc6" /* clobbered */
-	);
-	return 0;
-#elif defined(__sparc__)
-	asm(	"	sethi	%%hi(333333), %%l0\n"
-		"	or	%%l0,%%lo(333333),%%l0\n"
-		"test_loop:\n"
-		"	deccc	%%l0		! decrement count\n"
-		"	bnz	test_loop	! repeat until zero\n"
-		"	nop			! branch delay slot\n"
-		: /* no output registers */
-		: /* no inputs */
-		: "cc", "l0" /* clobbered */
-	);
-	return 0;
-#elif defined(__arm__)
-	asm(	"	ldr	r2,count	@ set count\n"
-		"	b       test_loop\n"
-		"count:	.word 333332\n"
-		"test_loop:\n"
-		"	add	r2,r2,#-1\n"
-		"	cmp	r2,#0\n"
-		"	bne	test_loop	@ repeat till zero\n"
-		: /* no output registers */
-		: /* no inputs */
-		: "cc", "r2" /* clobbered */
-	);
-	return 0;
-#elif defined(__aarch64__)
-	asm(	"	ldr	x2,=333332	// set count\n"
-		"test_loop:\n"
-		"	add	x2,x2,#-1\n"
-		"	cmp	x2,#0\n"
-		"	bne	test_loop	// repeat till zero\n"
-		: /* no output registers */
-		: /* no inputs */
-		: "cc", "r2" /* clobbered */
-	);
-	return 0;
-#endif
-
-	return -1;
-
+    }
 }
 
 int
@@ -597,7 +532,6 @@ main(int argc, char *argv[])
 	}
 	printf("fd cycles: %d\n", fd);
 
-	//fd = setup_counters(PERF_TYPE_HARDWARE, PERF_COUNT_HW_INSTRUCTIONS);
 	fd = setup_counters(PERF_TYPE_SOFTWARE, PERF_COUNT_SW_PAGE_FAULTS);
 	if (fd < 0) {
 		exit(1);
@@ -607,7 +541,17 @@ main(int argc, char *argv[])
 	start_counters(fd);
 
 	/* Do something */
-	instructions_million();
+	double *A, *B, *C, dtime;
+
+    	A = (double*)malloc(sizeof(double)*n*n);
+    	B = (double*)malloc(sizeof(double)*n*n);
+    	C = (double*)malloc(sizeof(double)*n*n);
+    	for(i=0; i<n*n; i++) { 
+		A[i] = rand()/RAND_MAX; 
+		B[i] = rand()/RAND_MAX;
+	}
+
+	gemm_omp(A, B, C);
 
 	stop_counters(fd);
 	read_counters(0);
