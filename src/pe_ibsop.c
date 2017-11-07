@@ -52,15 +52,27 @@
 #define PERF_SIGNAL (SIGRTMIN+4)
 #define MAX_EVENTS  2
 
-#define buffer_pages 1
+typedef void * perf_buffer_t;
 
-#define MAX_MALLOC  3
+static int count_total[MAX_EVENTS] = {0,0};
+static int event_fd[MAX_EVENTS];
+static perf_buffer_t event_buf[MAX_EVENTS];
+
+#define buffer_pages 1
+static size_t pagesize;
+static size_t pgmsk;
+
+static uint64_t sample_type = PERF_SAMPLE_PERIOD | PERF_SAMPLE_IP 
+			    | PERF_SAMPLE_ADDR   | PERF_SAMPLE_CPU
+			    | PERF_SAMPLE_TID    | PERF_SAMPLE_RAW;
+
+#define MAX_MALLOC	3
 
 struct mem_alloc_s {
-  void *address;
-  size_t size;
-  char *var_name;
-  uint64_t num_samples;
+	void *address;
+	size_t size;
+	char *var_name;
+	uint64_t num_samples;
 };
 
 struct perf_mmap_data_s {
@@ -73,46 +85,10 @@ struct perf_mmap_data_s {
   uint32_t tid;
 };
 
-struct event_data_s {
-  void *buffer;
-  int   fd;
-  int   total;
-};
-
-struct event_info_s {
-  uint64_t config;
-  uint64_t type;
-  uint64_t threshold;
-  uint64_t freq;
-};
-
-struct event_info_s event_info[] = {
-    {.config = PERF_COUNT_HW_CPU_CYCLES,  .type = PERF_TYPE_HARDWARE, .threshold = 4000, .freq = 1},
-    {.config = PERF_COUNT_SW_PAGE_FAULTS, .type = PERF_TYPE_SOFTWARE, .threshold = 1,    .freq = 0}
-};
-
-static struct event_data_s events[MAX_EVENTS];
-
-static size_t pagesize;
-static size_t pgmsk;
-
-static uint64_t sample_type = PERF_SAMPLE_PERIOD | PERF_SAMPLE_IP 
-			    | PERF_SAMPLE_ADDR   | PERF_SAMPLE_CPU
-			    | PERF_SAMPLE_TID;
-
 static char *var_names[] = {"A", "B", "C"};
 static int num_mallocs = 0;
-
 static struct mem_alloc_s  mem_allocation[MAX_MALLOC];
-
-static struct perf_mmap_data_s   mmap_data[MAX_EVENTS];
-
-static int
-get_num_events()
-{
-  int num_events = sizeof(event_info) / sizeof(struct event_info_s);
-  return num_events;
-}
+static struct perf_mmap_data_s   event_data[MAX_EVENTS];
 
 static void*
 wrap_malloc(size_t size)
@@ -183,10 +159,8 @@ stop_counters(int fd)
 static int
 stop_all()
 {
-  int ret = 0;
-  for(int i=0; i<MAX_EVENTS; i++) {
-      ret += stop_counters(events[i].fd);
-  }
+	int ret  = stop_counters(event_fd[0]);
+	ret 	+= stop_counters(event_fd[1]);
 
 	return ret;
 }
@@ -194,19 +168,15 @@ stop_all()
 static int
 start_all()
 {
-  int ret = 0;
-  for(int i=0; i<MAX_EVENTS; i++) {
-      ret    += ioctl(events[1].fd, PERF_EVENT_IOC_ENABLE);
-  }
-
-  return ret;
+	int ret = ioctl(event_fd[0], PERF_EVENT_IOC_ENABLE);
+	ret    += ioctl(event_fd[1], PERF_EVENT_IOC_ENABLE);
 }
 
 static int
 get_fd(int sig_fd)
 {
-	for(int i=0; i<MAX_EVENTS; i++) {
-		if (events[i].fd == sig_fd)
+	for(int i=0; i<2; i++) {
+		if (event_fd[i] == sig_fd)
 			return i;
 	}
 	return -1;
@@ -470,23 +440,23 @@ void event_handler(int signum, siginfo_t *info, void *uc)
 
 	struct perf_event_header ehdr;
 again:
-	ret = read_from_perf_buffer(events[index].buffer, &ehdr, sizeof(ehdr));
+	ret = read_from_perf_buffer(event_buf[index], &ehdr, sizeof(ehdr));
 	if (ret) {
 		fprintf(stderr, "cannot read event header\n");
 		return;
 	}
 	if (ehdr.type == PERF_RECORD_SAMPLE) {
-		ret = parse_perf_sample(events[index].buffer, &ehdr, &mmap_data[index], 0);
-		update((void*)mmap_data[index].address);
+		ret = parse_perf_sample(event_buf[index], &ehdr, &event_data[index], 0);
+		update((void*)event_data[index].address);
 
 	}  else {
-		skip_perf_data(events[index].buffer, ehdr.size);
+		skip_perf_data(event_buf[index], ehdr.size);
 	}
 
-	if (is_more_perf_data(events[index].buffer))
+	if (is_more_perf_data(event_buf))
 		goto again;
 
-	events[index].total++;
+	count_total[index]++;
 
 	ret=start_counters(fd);
 
@@ -515,6 +485,13 @@ int setup_notification(int fd)
 	ret = fcntl(fd, F_SETOWN, getpid());
 	if (ret == -1) {
 		fprintf(stderr, "Error in setting owner\n");
+		return -1;
+	}
+
+	/* Enable the event for one period */
+	ret = ioctl(fd, PERF_EVENT_IOC_REFRESH, 1);
+	if (ret == -1) {
+		fprintf(stderr, "Error in IOC_REFRESH\n");
 		return -1;
 	}
 	return ret;
@@ -547,25 +524,35 @@ int setup_counters(uint64_t type, uint64_t config, uint64_t period, uint64_t fre
 #endif
 
 	attr.disabled 	 = 1;
-	
 
-	attr.type 	 = type;
-	attr.config 	 = config;
+	attr.type 	    = type;
+	attr.config 	  = config;
 	attr.sample_freq = period;
 	attr.freq 	 = freq;
 	attr.wakeup_events = 1;
 	attr.size	   = sizeof(struct perf_event_attr);
 	attr.sample_type   = sample_type;
 
-	events[index].fd = sys_perf_event_open(&attr, 0, -1, -1, 0);
-	if (events[index].fd < 0) {
-		perror("sys_perf_event_open");
-		exit(1);
-	}
-	int fd = events[index].fd;
+	attr.exclude_callchain_kernel = 0;
+	attr.exclude_idle = 0;
+	attr.exclude_kernel = 0;
+	attr.exclude_user = 0;
 
-	events[index].buffer = setup_buffer(fd);
-	if (events[index].buffer == NULL) {
+	attr.precise_ip = 1;
+	attr.mmap = 1;
+	attr.sample_id_all = 1;
+	attr.read_format   = 0;
+	attr.pinned = 0;
+
+
+	event_fd[index] = sys_perf_event_open(&attr, 0, -1, -1, 0);
+	if (event_fd[index] < 0) {
+		perror("sys_perf_event_open");
+	}
+	int fd = event_fd[index];
+
+	event_buf[index] = setup_buffer(fd);
+	if (event_buf[index] == NULL) {
 		exit(2);
 	}
 
@@ -582,10 +569,10 @@ read_counters(int index)
 	size_t res;
 	unsigned long long counter_result;
 
-	res = read(events[index].fd, &counter_result, sizeof(unsigned long long));
+	res = read(event_fd[index], &counter_result, sizeof(unsigned long long));
 	assert(res == sizeof(unsigned long long));
 
-	printf("[%d] counter:\t\t%lld\n[%d] Num counter: %d\n\n", index, counter_result, index, events[index].total);
+	printf("[%d] counter:\t\t%lld\n[%d] Num counter: %d\n\n", index, counter_result, index, count_total[index]);
 }
 
 static void
@@ -633,39 +620,42 @@ main(int argc, char *argv[])
 
 	setup_handler();
 
-	int i;
-	int num_events = get_num_events();
-	for(i=0; i<num_events; i++) {
-	    int fd = setup_counters(event_info[i].type, event_info[i].config,
-	                            event_info[i].threshold, event_info[i].freq);
-	    printf("event %d, fd: %d\n", i, fd);
+	//int fd = setup_counters(PERF_TYPE_HARDWARE, PERF_COUNT_HW_CPU_CYCLES, 4000, 1);
+  int fd = setup_counters(7,  ((1ULL<<19)), 40, 1);
+	if (fd < 0) {
+		exit(1);
 	}
+	printf("fd cycles: %d\n", fd);
+
+	fd = setup_counters(PERF_TYPE_SOFTWARE, PERF_COUNT_SW_PAGE_FAULTS, 1, 0);
+	if (fd < 0) {
+		exit(1);
+	}
+	printf("fd page-faults: %d\n", fd);
 
 	/* Do something */
+	int i;
 	double *A, *B, *C, dtime;
 
-  	A = (double*)wrap_malloc(sizeof(double)*nn);
-  	B = (double*)wrap_malloc(sizeof(double)*nn);
-  	C = (double*)wrap_malloc(sizeof(double)*nn);
+  A = (double*)wrap_malloc(sizeof(double)*nn);
+  B = (double*)wrap_malloc(sizeof(double)*nn);
+  C = (double*)wrap_malloc(sizeof(double)*nn);
 
 	printf("A: %p - %p   B: %p - %p     C: %p - %p\n", A, A+nn, B, B+nn, C, C+nn);
 
-	for(i=0; i<MAX_EVENTS; i++) {
-	    start_counters(events[i].fd);
-	}
+	start_counters(event_fd[0]);
+	start_counters(event_fd[1]);
 
-	for(i=0; i<n*n; i++) {
+    	for(i=0; i<n*n; i++) { 
 		A[i] = rand()/RAND_MAX; 
 		B[i] = rand()/RAND_MAX;
 	}
 
 	gemm_omp(A, B, C, n);
 
-
-  for(i=0; i<MAX_EVENTS; i++) {
-      stop_counters(events[i].fd);
-      read_counters(i);
-  }
+	stop_counters(fd);
+	read_counters(0);
+	read_counters(1);
 
 	for (i=0; i<MAX_MALLOC; i++) {
 	    printf("Var: %s, address: %p-%p, size: %d, samples: %d\n", mem_allocation[i].var_name, mem_allocation[i].address,
