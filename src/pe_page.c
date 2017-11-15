@@ -51,7 +51,7 @@
 #endif
 
 #define PERF_SIGNAL (SIGRTMIN+4)
-#define MAX_EVENTS  3
+#define MAX_EVENTS  2
 
 #define buffer_pages 1
 
@@ -89,7 +89,6 @@ struct event_info_s {
 
 struct event_info_s event_info[] = {
     {.config = PERF_COUNT_HW_CPU_CYCLES,  .type = PERF_TYPE_HARDWARE, .threshold = 4000, .freq = 1},
-    {.config = (1ULL<<19),  .type = 7, .threshold = 40, .freq = 1},
     {.config = PERF_COUNT_SW_PAGE_FAULTS, .type = PERF_TYPE_SOFTWARE, .threshold = 1,    .freq = 0}
 };
 
@@ -552,14 +551,13 @@ int setup_counters(uint64_t type, uint64_t config, uint64_t period, uint64_t fre
 
 	attr.disabled 	 = 1;
 	
-
 	attr.type 	 = type;
 	attr.config 	 = config;
 	attr.sample_freq = period;
 	attr.freq 	 = freq;
 	attr.wakeup_events = 0;
 	attr.size	   = sizeof(struct perf_event_attr);
-	attr.sample_type   = 17417; //PERF_SAMPLE_RAW | PERF_SAMPLE_CPU; //sample_type;
+	attr.sample_type   = sample_type;
 
 	printf("Creating event %d: ", config);
 	events[index].fd = sys_perf_event_open(&attr, 0, -1, -1, 0);
