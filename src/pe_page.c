@@ -25,6 +25,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
+#include <errno.h>
 
 #include <sys/ioctl.h>
 #include <signal.h>
@@ -50,7 +51,7 @@
 #endif
 
 #define PERF_SIGNAL (SIGRTMIN+4)
-#define MAX_EVENTS  2
+#define MAX_EVENTS  3
 
 #define buffer_pages 1
 
@@ -88,6 +89,7 @@ struct event_info_s {
 
 struct event_info_s event_info[] = {
     {.config = PERF_COUNT_HW_CPU_CYCLES,  .type = PERF_TYPE_HARDWARE, .threshold = 4000, .freq = 1},
+    {.config = (1ULL<<19),  .type = 7, .threshold = 40, .freq = 1},
     {.config = PERF_COUNT_SW_PAGE_FAULTS, .type = PERF_TYPE_SOFTWARE, .threshold = 1,    .freq = 0}
 };
 
@@ -185,7 +187,8 @@ stop_all()
 {
   int ret = 0;
   for(int i=0; i<MAX_EVENTS; i++) {
-      ret += stop_counters(events[i].fd);
+      	if (events[i].fd >= 0)
+		ret += stop_counters(events[i].fd);
   }
 
 	return ret;
@@ -196,7 +199,8 @@ start_all()
 {
   int ret = 0;
   for(int i=0; i<MAX_EVENTS; i++) {
-      ret    += ioctl(events[1].fd, PERF_EVENT_IOC_ENABLE);
+      	if (events[i].fd >= 0)
+      		ret    += ioctl(events[i].fd, PERF_EVENT_IOC_ENABLE);
   }
 
   return ret;
@@ -553,12 +557,15 @@ int setup_counters(uint64_t type, uint64_t config, uint64_t period, uint64_t fre
 	attr.config 	 = config;
 	attr.sample_freq = period;
 	attr.freq 	 = freq;
-	attr.wakeup_events = 1;
+	attr.wakeup_events = 0;
 	attr.size	   = sizeof(struct perf_event_attr);
-	attr.sample_type   = sample_type;
+	attr.sample_type   = 17417; //PERF_SAMPLE_RAW | PERF_SAMPLE_CPU; //sample_type;
 
+	printf("Creating event %d: ", config);
 	events[index].fd = sys_perf_event_open(&attr, 0, -1, -1, 0);
+	printf("%d\n", events[index].fd);
 	if (events[index].fd < 0) {
+		fprintf(stderr, "Error: %s\n", strerror(errno));
 		perror("sys_perf_event_open");
 		exit(1);
 	}
