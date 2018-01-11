@@ -1,8 +1,14 @@
-all: cs_dual mmul pe_dual pe_dual_group cs_dual_fork cs_multi
+all: cs_dual mmul pe_dual pe_dual_group cs_dual_fork cs_multi context_switches cs_switch
 
 clean:
 	rm -rf *.o *.hpcstruct hpctoolkit-*
 	rm -f cs_dual mmul pe_dual pe_dual_group cs_dual_fork cs_multi
+
+cs_switch: cs_switch.c
+	gcc -g -std=gnu99 -O0 cs_switch.c -o cs_switch
+
+context_switches: context_switches.c
+	gcc -g -std=gnu99 -O0 ./context_switches.c -o context_switches
 
 pe_dual_group: pe_dual_group.c
 	gcc -g -std=gnu99 -O0 ./pe_dual_group.c -o pe_dual_group
