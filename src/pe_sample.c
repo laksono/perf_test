@@ -229,7 +229,7 @@ static int parse_perf_sample(void *event_buf, struct perf_event_header *ehdr)
 		 * th  IIP of an instruction which caused the event, i.e.,
 		 * no skid
 		 */
-		fprintf(stderr, "IIP:%#016llu  ", val64);
+		//fprintf(stderr, "IIP:%#016llu  ", val64);
 		sz -= sizeof(val64);
 	}
 
@@ -240,7 +240,7 @@ static int parse_perf_sample(void *event_buf, struct perf_event_header *ehdr)
 			return -1;
 		}
 
-		fprintf(stderr, "PID:%d  TID:%d  ", pid.pid, pid.tid);
+		//fprintf(stderr, "PID:%d  TID:%d  ", pid.pid, pid.tid);
 		sz -= sizeof(pid);
 	}
 
@@ -251,7 +251,7 @@ static int parse_perf_sample(void *event_buf, struct perf_event_header *ehdr)
 			return -1;
 		}
 
-		fprintf(stderr, "TIME:%llu  ", val64);
+		//fprintf(stderr, "TIME:%llu  ", val64);
 		sz -= sizeof(val64);
 	}
 
@@ -262,7 +262,7 @@ static int parse_perf_sample(void *event_buf, struct perf_event_header *ehdr)
 			return -1;
 		}
 
-		fprintf(stderr, "ADDR:%llu  ", val64);
+		//fprintf(stderr, "ADDR:%llu  ", val64);
 		sz -= sizeof(val64);
 	}
 	if (type & PERF_SAMPLE_CPU) {
@@ -272,7 +272,7 @@ static int parse_perf_sample(void *event_buf, struct perf_event_header *ehdr)
 			fprintf(stderr, "cannot read cpu");
 			return -1;
 		}
-		fprintf(stderr, "CPU:%u  ", cpu.cpu);
+		//fprintf(stderr, "CPU:%u  ", cpu.cpu);
 		sz -= sizeof(cpu);
 	}
 
@@ -282,7 +282,7 @@ static int parse_perf_sample(void *event_buf, struct perf_event_header *ehdr)
 			fprintf(stderr, "cannot read period");
 			return -1;
 		}
-		fprintf(stderr, "PERIOD:%llu  ", val64);
+		//fprintf(stderr, "PERIOD:%llu  ", val64);
 		sz -= sizeof(val64);
 	}
 
@@ -296,7 +296,7 @@ static int parse_perf_sample(void *event_buf, struct perf_event_header *ehdr)
 		}
 		sz -= sizeof(nr);
 
-		fprintf(stderr, "\n  CALLCHAIN :\n");
+		//fprintf(stderr, "\n  CALLCHAIN :\n");
 		while(nr--) {
 			ret = read_from_perf_buffer_64(event_buf, &ip);
 			if (ret) {
@@ -306,11 +306,11 @@ static int parse_perf_sample(void *event_buf, struct perf_event_header *ehdr)
 
 			sz -= sizeof(ip);
 
-			fprintf(stderr, "\t0x%llu\n", ip);
+			//fprintf(stderr, "\t0x%llu\n", ip);
 		}
 	}
 
-	fprintf(stderr, "\n");
+	fprintf(stderr, ".");
 	return 0;
 }
 
@@ -368,7 +368,7 @@ again:
 		return;
 	}
 	if (ehdr.type == PERF_RECORD_SAMPLE) {
-		fprintf(stderr, "[%d] fd: %d    ", index, fd);
+		//fprintf(stderr, "[%d] fd: %d    ", index, fd);
 		ret = parse_perf_sample(event_buf[index], &ehdr);
 
 	}  else {
@@ -593,13 +593,15 @@ main(int argc, char *argv[])
 
 	int fd = setup_counters(PERF_TYPE_HARDWARE, PERF_COUNT_HW_CPU_CYCLES);
 	if (fd < 0) {
+		perror("setup counter cyc");
 		exit(1);
 	}
 	printf("fd cycles: %d\n", fd);
 
-	//fd = setup_counters(PERF_TYPE_HARDWARE, PERF_COUNT_HW_INSTRUCTIONS);
-	fd = setup_counters(PERF_TYPE_SOFTWARE, PERF_COUNT_SW_PAGE_FAULTS);
+	fd = setup_counters(PERF_TYPE_HARDWARE, PERF_COUNT_HW_STALLED_CYCLES_FRONTEND);
+	//fd = setup_counters(PERF_TYPE_SOFTWARE, PERF_COUNT_SW_PAGE_FAULTS);
 	if (fd < 0) {
+		perror("setup counter ins");
 		exit(1);
 	}
 	printf("fd page-faults: %d\n", fd);
@@ -610,6 +612,7 @@ main(int argc, char *argv[])
 	instructions_million();
 
 	stop_counters(fd);
+	fprintf(stderr, "\n");
 	read_counters(0);
 	read_counters(1);
 

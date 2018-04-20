@@ -1,3 +1,5 @@
+PERFMON_ROOT=/home/la5/git/perfmon2-libpfm4
+
 all: cs_dual mmul pe_dual pe_dual_group cs_dual_fork cs_multi context_switches cs_switch
 
 clean:
@@ -22,8 +24,14 @@ pe_dual: pe_dual.c
 cs_dual: cs_dual.c matrix_multiply.c matrix_multiply.h
 	gcc -g -std=gnu99 -O0 ./cs_dual.c -o cs_dual matrix_multiply.c
 
+gen_sample: gen_sample.c 
+	gcc -g -std=gnu99 -O0 ./gen_sample.c -o gen_sample
+
 cs_dual_fork: cs_dual_fork.c 
 	gcc -g -std=gnu99 -O0 ./cs_dual_fork.c -o cs_dual_fork 
 
 mmul: matrix_multiply_main.c matrix_multiply.c matrix_multiply.h
 	gcc -g -std=gnu99 -O0 matrix_multiply_main.c -o mmul matrix_multiply.c
+
+test_pmu: test_pmu.c
+	gcc -g -O0 test_pmu.c  -I ${PERFMON_ROOT}/include/ -L $(PERFMON_ROOT)/lib/ -lpfm -o test_pmu

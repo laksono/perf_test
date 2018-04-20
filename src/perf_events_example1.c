@@ -63,8 +63,10 @@ static void setup_counters(void)
 #endif
 
 	attr.disabled = 1;
-	attr.type = PERF_TYPE_HARDWARE;
-	attr.config = PERF_COUNT_HW_CPU_CYCLES;
+	attr.type     = PERF_TYPE_HARDWARE;
+	attr.config   = PERF_COUNT_HW_STALLED_CYCLES_FRONTEND; //PERF_COUNT_HW_CPU_CYCLES;
+	attr.sample_type = PERF_SAMPLE_ADDR | PERF_SAMPLE_CPU;
+
 	cycles_fd = sys_perf_event_open(&attr, 0, -1, -1, 0);
 	if (cycles_fd < 0) {
 		perror("sys_perf_event_open");
@@ -78,7 +80,7 @@ static void setup_counters(void)
 	 */
 	attr.disabled = 0; /* The group leader will start/stop us */
 	attr.type = PERF_TYPE_HARDWARE;
-	attr.config = PERF_COUNT_HW_INSTRUCTIONS;
+	attr.config = PERF_COUNT_HW_STALLED_CYCLES_BACKEND; //PERF_COUNT_HW_INSTRUCTIONS;
 	instructions_fd = sys_perf_event_open(&attr, 0, -1, cycles_fd, 0);
 	if (instructions_fd < 0) {
 		perror("sys_perf_event_open");
